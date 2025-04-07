@@ -7,7 +7,7 @@
 data class PromptResult(val normalizedText: String) {
 
     fun on(pattern: String, block: () -> Unit): PromptResult {
-        val matches = pattern.toRegex().containsMatchIn(this.normalizedText)
+        val matches = matches(pattern)
         if (matches) {
             block()
         }
@@ -15,11 +15,19 @@ data class PromptResult(val normalizedText: String) {
     }
 
     fun onExactly(pattern: String, block: () -> Unit): PromptResult {
-        val matches = pattern.toRegex().matches(this.normalizedText)
+        val matches = matchesExactly(pattern)
         if (matches) {
             block()
         }
         return this;
+    }
+
+    fun matches(pattern: String): Boolean {
+        return pattern.toRegex().containsMatchIn(this.normalizedText)
+    }
+
+    fun matchesExactly(pattern: String): Boolean {
+        return pattern.toRegex().matches(this.normalizedText)
     }
 
 
