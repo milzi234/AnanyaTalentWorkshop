@@ -72,4 +72,9 @@ class Console {
     fun print(text: String) {
         println(text);
     }
+
+    fun printAndWait(text: String) {
+        println(text)
+        readLine()
+    }
 }

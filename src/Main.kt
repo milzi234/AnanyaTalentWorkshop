@@ -1,6 +1,11 @@
+import com.github.mm.coloredconsole.*
+import kotlin.random.Random
+import kotlin.system.exitProcess
+
 var name = ""
 val progress = StoryProgress()
 val console = Console()
+
 object StoryFlags {
     const val FOUND_STAIRS = "Found stairs"
     const val BECAME_FRIENDS_WITH_CAT = "Friends with cat"
@@ -12,7 +17,10 @@ object StoryFlags {
     const val ANSWERED_THE_QUESTION="The question is answered"
     const val FRIEND_WITH_ZWE="Friends with Zwe"
     const val MET_GIANT = "Met giant"
+    const val MET_ELF = "Met elf"
+    const val MET_UNICORN="Met Unicorn"
 }
+
 object Prison {
     private var lookCount = 0
     fun wakeUp() {
@@ -237,7 +245,6 @@ fun door1(){
     } else {
         console.print("Die Antwort ist falsch.Versuche es nochmal.")
         door1()
-
     }
     Hallway.doorAndStairs()
     progress.remember(StoryFlags.DOOR_ONE_DONE)
@@ -307,36 +314,37 @@ fun hallWay2(){
     choice.on("Zur 1.Tür"){
         RoomWithGiant.door3()
     }.on("Zur 2.Tür") {
-        door4()
+        RoomWithGiant.door4()
     }.on("Zum Dachboden"){
-        Way1()
+        RoomWithGiant.Way_1()
     }
 }
-
-
-object RoomWithGiant {
-    fun door3(){
-        console.print("Du gehst rein und du siehst einen riesigen Schuh! Er sagt: \"Hallo, komm' hoch zu mir, damit wir uns unterhalten können.\"")
+object RoomWithGiant : ColoredConsole {
+    fun door3() {
+        if (progress.didItHappen(StoryFlags.MET_ELF)) {
+            console.print("Da ist nur ein leerer Raum und eine große Treppe. Hier gibt es nichts mehr.")
+            hallWay2()
+            return
+        }
+        console.print("Du gehst rein und du siehst einen riesigen Schuh! Er sagt: " + "\"Hallo, komm' hoch zu mir, damit wir uns unterhalten können.\"".yellow())
         choose()
     }
-
     private fun choose() {
         val choice = console.multipleChoice(
             "Was tust Du?", progress.createOptions()
                 .addOption("Den Schuh fragen, wo er drückt").unless(StoryFlags.MET_GIANT)
-                .addOption("Dich umschauen")
+                .addOption("Dich umschauen").inCase(StoryFlags.MET_GIANT)
                 .addOption("Die Treppe hoch gehen").inCase(StoryFlags.FOUND_STAIRS)
                 .buildMenu()
         )
-        choice.on("Den Schuh fragen, wo er drückt"){
+        choice.on("Den Schuh fragen, wo er drückt") {
             talkToShoe()
-        }.on("Dich umschauen"){
+        }.on("Dich umschauen") {
             lookAround()
-        }.on("Die Treppe hoch gehen"){
+        }.on("Die Treppe hoch gehen") {
             goToGiantsHead()
         }
     }
-
     fun room3() {
         if (progress.didItHappen(StoryFlags.FOUND_STAIRS)) {
             console.print("Da ist immer noch ein riesiger Schuh und eine Treppe nach oben")
@@ -346,14 +354,14 @@ object RoomWithGiant {
         }
         choose()
     }
-
-    fun talkToShoe(){
+    fun talkToShoe() {
         console.print("Der Schuh sagt: \"Hey! Ich bin doch kein Schuh! Ich bin ein Riese! Schau' mal nach oben.\"")
-        val choice = console.multipleChoice(prompt = "Was machst Du?", listOf(
-            "Nach oben gucken",
-            "Den Schuh überzeugen, dass er ein Schuh ist"
-        ))
-
+        val choice = console.multipleChoice(
+            prompt = "Was machst Du?", listOf(
+                "Nach oben gucken",
+                "Den Schuh überzeugen, dass er ein Schuh ist"
+            )
+        )
         choice.on("Den Schuh überzeugen, dass er ein Schuh ist") {
             console.print("Aber Mr. Schuh! Ich sehe eindeutig, dass sie ein Schuh sind! Solche Schuhe wie Sie gibt es auf jeden Fall nicht bei Deichmann... Sie müssen ein Schuh sein!")
             console.print("Der Schuch lacht ... \"Den Schuch habe ich vom bösen Zauberer bekommen, damit hier nicht alles nach Käsefuß stinkt.\". Du schaust nach oben.")
@@ -362,27 +370,167 @@ object RoomWithGiant {
         progress.remember(StoryFlags.MET_GIANT)
         room3()
     }
-
-    fun lookAround(){
-        console.print("Da ist noch ein Schrank in den Zimmer.")
+    fun lookAround() {
+        console.print("Da ist noch ein Schrank in den Zimmer.Es iast braun und sehr , sehr staubig .Du öffnest den Schrank und du siehst eine Treppe die nach oben führt.")
         progress.remember(StoryFlags.FOUND_STAIRS)
         room3()
     }
-
-    fun goToGiantsHead(){
-
+    fun goToGiantsHead() {
+        console.print(
+            "Du gehst die Treppe hoch .Du gehst und gehst und gehst. Die Treppe ist sooooooooo... lang!Wenn du ENDLICH oben angekommen bist . Dort ist eine Tür. Auf der Tür ist ein Zettel." +
+                    "\nAuf den Zettel steht:'Wenn du rein gehst kommst du nie wieder raus'"
+        )
+        val choice = console.multipleChoice(
+            prompt = "Was machst Du?", listOf(
+                "Rein gehen",
+                "Vor der Tür stehen bleiben",
+                "Nach unten rennen"
+            )
+        )
+        choice.on("Rein gehen") {
+            console.print("Du gehst rein und siehst eine riesige Nase.")
+            console.print(
+                "Der Riese sagt :\" Hallo.Schön dich kennenzulernen. Ich brauche dringend deine Hilfe.Ich bin eigentlich eine Elfe aber der böse Zauberer hat mich in ein Riese verwandelt" +
+                        "\nBitte hilfe mir\"Natürlich wirst du ihm helfen.Also fragst du ihn wie du ihn helfen kannst.Er sagt :\"Neben die ist ein kleiner Tresor dadrinne ist das gegenmittel .Aber man brauct dafür ein Passwort.\"")
+            console.print("Auf den Boden findest du ein Zettel.")
+            ques()
+        }.on ("Vor der Tür stehen bleiben"){
+            console.print("Lilli sagt:\"Ach komm schon geh doch rein.Du musst das tun sonst kommen wir nicht weiter.Wenn du willst gehe ich vor.\"Du gehst rein du hattest ja eigentlich nicht mal eine Wahl")
+            console.print("Du gehst rein und siehst eine riesige Nase.")
+            console.print("Der Riese sagt :\" Hallo.Schön dich kennenzulernen. Ich brauche dringend deine Hilfe.Ich bin eigentlich eine Elfe aber der böse Zauberer hat mich in ein Riese verwandelt" +
+                    "\nBitte hilfe mir\"Natürlich wirst du ihm helfen.Also fragst du ihn wie du ihn helfen kannst.Er sagt :\"Neben die ist ein kleiner Tresor dadrinne ist das gegenmittel .Aber man brauct dafür ein Passwort.\"")
+            console.print("Auf den Boden findest du ein Zettel.")
+            ques()
+        }.on("Nach unten rennen"){
+            console.print("Lilli sagt:\"Ach komm schon geh doch rein.Du musst das tun sonst kommen wir nicht weiter.Wenn du willst gehe ich vor.\"Du gehst die Treppe hoch und durch die Tür du hattest ja eigentlich nicht mal eine Wahl")
+            console.print("Der Riese sagt :\" Hallo.Schön dich kennenzulernen. Ich brauche dringend deine Hilfe.Ich bin eigentlich eine Elfe aber der böse Zauberer hat mich in ein Riese verwandelt" +
+                    "\nBitte hilfe mir\"Natürlich wirst du ihm helfen.Also fragst du ihn wie du ihn helfen kannst.Er sagt :\"Neben die ist ein kleiner Tresor dadrinne ist das gegenmittel .Aber man brauct dafür ein Passwort.\"")
+            console.print("Auf den Boden findest du ein Zettel.")
+            ques()
+        }
+    }
+    fun ques() {
+        console.print("Dadrauf steht :'Du kaufst ein sehr güstiges Buch und ein sehr güstiger Stift. Beides zusammen kostet 1 Euro und 10 cents. Das Buch kostet 1 Euro mehr als der Stift.Wie viele cents kostet der Stift?'")
+        val answer = console.ask("Welche Antwort tippst du ein?")
+        if (answer.matchesExactly("5")) {
+            console.print(
+                "Du sagst die Antwort und der Tresor öffnet sich.Du gibst dem Riese das gegenmittel.Er freut sich und sagt :\"Danke!Danke!Danke!Danke!Danke!\"." +
+                        "\nDann trinkt er das Gegenmittel.Er verwandelt sich in eine Elfe .Er sagt:\"Ich komme mit dir mit \"Und ihr geht aus dem Raum raus")
+            progress.remember(StoryFlags.MET_ELF)
+        } else {
+            console.print("Die Antwort ist falsch.Versuche es nochmal.")
+            ques()
+        }
+        hallWay2()
+    }
+    fun door4() {
+        console.print("Hinten im Raum sitzt ein Einhorn.Vor dem Einhorn ist ein Lasergitter.Sie sagt :\"Hi , Ich bin schon so lange eingespert .Hilfst du mir bitte!\"" +
+                "\nDu nickst und fragst:\"Wie kann ich helfen\".Sie sagt:\"Neben dir ist ein sehr kleiner Gang .Dadrinne sollte ein aus Knopf sein.Kennst du vielleicht jemand der klein ist?\"")
+        if (progress.didItHappen(StoryFlags.MET_ELF)){
+            console.print("Die Elfe sagt :\"Ich kann das machen.Ich passe nämlich durch das Loch\"Du stimmst zu und die Elfe geht durch das Loch.Sie ruft :\"Du brauchst ein Passwort hier ist ein Zettel")
+            quasi()
+        }
+        else{
+            console.print("Du kennst keinen der durch das winzige Loch passt also kannst du ihr leider nicht helfen .Du versprichts ihr wieder zu kommen")
+            hallWay2()
+        }
+    }
+    fun quasi(){
+        console.print("Dadrauf steht:'Der Vater ist 35 Jahre alt und sein Sohn ist 5.In wie vielen Jahren wird der Vater genau dreimal so alt sein wie der Sohn?'\"")
+        val answer = console.ask("Was ist die Antwort?")
+        if (answer.matchesExactly("10")) {
+            console.print("Die Elfe ruft:\"Die Antwort ist richtig.Ich drücke jetzt den Knopf!\"BIEP!Das Lasergitter ist verschwunden!Das Einhorn kommt raus und bedankt sich.Sie kommt auch mit euch mit.")
+            progress.remember(StoryFlags.MET_UNICORN)
+            hallWay2()
+        } else {
+            console.print("Die Antwort ist falsch. Versuche es nochmal.")
+            quasi()
+        }
+    }
+    fun Way_1() {
+        console.print("TODO: Die Begleiter machen was cooles und es gibt noch ein Rätsel")
+        console.print("Hahaha! Du bist mir in die Falle gegangen! Beim Kopfrechnen wirst Du versagen!".red)
+        BossFight.challenge()
     }
 
 }
 
+object BossFight : ColoredConsole {
+    private var challengesCompleted: Int = 0
 
-fun door4(){
-    console.print("abc")
+    private var questions: List<List<String>> = listOf(
+        listOf("23 plus 12","35"),
+        listOf("100 minus 43", "57"),
+        listOf("7 mal 12","84"),
+        listOf("90 durch 6","15"),
+
+        listOf("75 plus 13","88"),
+        listOf("29 minus 13", "16"),
+        listOf("5 mal 17","85"),
+        listOf("12 durch 4","3"),
+
+        listOf("45 plus 38","83"),
+        listOf("99 minus 53", "46"),
+        listOf("3 mal 15","45"),
+        listOf("88 durch 8","11"),
+    )
+
+    val reactions: List<String> = listOf(
+        "Pah! Das war doch Anfängerglück".red,
+        "Du hast das bestimmt nur geraten".red,
+        "Diese Aufgabe hätte jeder gekonnt".red,
+        "Sogar ein Hund könnte das rechnen!".red,
+        "Das hat Dir jemand verraten!".red
+    )
+
+    val alreadyAnswered: MutableSet<Int> = HashSet<Int>()
+
+    fun pickRandomQuestion(): List<String> {
+        var questionIndex = 0
+        do {
+            questionIndex = Random.nextInt(0, questions.size)
+        } while (alreadyAnswered.contains(questionIndex))
+        return questions[questionIndex]
+    }
+
+    fun markAnswered(question: String) {
+        questions.forEachIndexed { i, it ->
+            if (it.get(0).equals(question)) {
+                alreadyAnswered.add(i)
+            }
+        }
+    }
+
+    fun challenge() {
+        if (areWeDone()) {
+            outro();
+        }
+        val pair = pickRandomQuestion()
+        val question = pair.first()
+        val answer = pair.last()
+
+        if (console.askRaw(question).matchesExactly(answer)) {
+            console.print(reactions[challengesCompleted])
+            challengesCompleted++
+            markAnswered(question)
+        } else {
+            console.print("Falsch! So wirst Du mich nie besiegen, $name")
+        }
+
+        challenge()
+    }
+
+    fun areWeDone(): Boolean {
+        return challengesCompleted > 4
+    }
 }
-fun Way1(){
-    console.print("abc")
+
+fun outro() {
+    console.print("Hurrah")
+    exitProcess(0)
 }
+
+
 fun main() {
-    //Prison.wakeUp()
-    RoomWithGiant.door3()
+    BossFight.challenge()
 }
