@@ -1,6 +1,7 @@
 import com.github.mm.coloredconsole.*
 import kotlin.random.Random
 import kotlin.system.exitProcess
+import BossFight
 
 var name = ""
 val progress = StoryProgress()
@@ -628,7 +629,7 @@ object RoomWithGiant : ColoredConsole {
       )
     } else {
       console.print("Die Antwort ist leider nicht richtig.Versuche es noch einmal.")
-      ques()
+      quan()
     }
   }
 }
@@ -658,7 +659,18 @@ object BossFight : ColoredConsole {
                   "Sogar ein Hund könnte das rechnen!".red,
                   "Das hat dir bestimmt jemand verraten!".red
           )
+  val wizardMoods: List<String> = listOf("menacing", "angry", "laughing", "casting", "furious")
   val alreadyAnswered: MutableSet<Int> = HashSet<Int>()
+  
+  fun startBossFight() {
+    console.clear()
+    console.print("Du betrittst den Thronsaal des bösen Zauberers...".red)
+    CharacterArtManager.showCharacter("wizard", "menacing")
+    console.print("Der böse Zauberer: 'Endlich bist du hier, $name! Aber du wirst mich niemals besiegen!'".red)
+    console.pause()
+    challenge()
+  }
+  
   fun pickRandomQuestion(): List<String> {
     var questionIndex = 0
     do {
@@ -675,30 +687,76 @@ object BossFight : ColoredConsole {
   }
   fun challenge() {
     if (areWeDone()) {
+      console.clear()
+      CharacterArtManager.showCharacter("wizard", "defeated")
+      console.print("Der Zauberer fällt zu Boden: 'Nein! Das ist unmöglich! Du hast mich besiegt!'".red)
+      console.pause()
       outro()
     }
+    
+    // Show random wizard mood before each question
+    console.clear()
+    val randomMood = wizardMoods[Random.nextInt(wizardMoods.size)]
+    CharacterArtManager.showCharacter("wizard", randomMood)
+    
     val pair = pickRandomQuestion()
     val question = pair.first()
     val answer = pair.last()
-    if (console.askRaw(question).matchesExactly(answer)) {
+    console.print("Der Zauberer stellt dir eine Aufgabe: $question".red)
+    
+    if (console.askRaw("Deine Antwort: ").matchesExactly(answer)) {
       console.print(reactions[challengesCompleted])
       challengesCompleted++
       markAnswered(question)
+      console.pause()
     } else {
-      console.print("Falsch! So wirst Du mich nie besiegen, $name")
+      console.clear()
+      CharacterArtManager.showCharacter("wizard", "laughing")
+      console.print("Falsch! So wirst Du mich nie besiegen, $name! HAHAHA!".red)
+      console.pause()
     }
     challenge()
   }
   fun areWeDone(): Boolean {
     return challengesCompleted > 4
   }
+
+  fun outro() {
+    CharacterArtManager.showVictory()
+    console.print("Du hast das Matheschloss befreit!")
+    console.print("Alle deine Freunde sind jetzt frei!")
+    println()
+    console.pause("")
+    console.clear()
+    CharacterArtManager.showCharacter("lilli", "excited")
+    console.print("Lilli: 'Danke $name! Du bist der beste!'".purple)
+    console.pause()
+    exitProcess(0)
+  }
 }
 
-fun outro() {
-  console.print("Hurrah")
-  exitProcess(0)
-}
 
 fun main() {
-  Prison.pieceOfPaper()
+  // Example: Show title screen and demonstrate character art
+  CharacterArtManager.showTitle()
+  console.pause()
+  
+  // Example interaction demonstrating different moods
+  console.clear()
+  console.print("Du begegnest Lilli zum ersten Mal...")
+  println()
+  CharacterArtManager.showCharacter("Lilli", "curious")
+  console.print("Die Katze schaut dich neugierig an.")
+  console.pause()
+  
+  console.clear()
+  console.print("Nachdem du dich vorgestellt hast...")
+  println()
+  CharacterArtManager.showCharacter("Lilli", "happy")
+  console.print("Lilli freut sich, dich kennenzulernen!")
+  console.pause()
+  
+  // Start the actual game
+  console.clear()
+  BossFight.startBossFight()
 }

@@ -1,5 +1,59 @@
 class Console {
     /**
+     * Clears the terminal screen using ANSI escape codes.
+     * Works on Mac, Linux, and modern Windows terminals.
+     */
+    fun clear() {
+        print("\u001B[2J\u001B[H")
+        System.out.flush()
+    }
+    
+    /**
+     * Clears the current line.
+     */
+    fun clearLine() {
+        print("\u001B[2K\r")
+        System.out.flush()
+    }
+    
+    /**
+     * Moves cursor to specified position (1-based).
+     */
+    fun moveCursor(row: Int, col: Int) {
+        print("\u001B[${row};${col}H")
+        System.out.flush()
+    }
+    
+    /**
+     * Prints ASCII art preserving formatting and newlines.
+     */
+    fun printAsciiArt(art: String) {
+        println(art)
+    }
+    
+    /**
+     * Prints text centered on the screen (assumes 80 character width).
+     */
+    fun printCentered(text: String, width: Int = 80) {
+        val lines = text.split('\n')
+        for (line in lines) {
+            val padding = (width - line.length) / 2
+            if (padding > 0) {
+                print(" ".repeat(padding))
+            }
+            println(line)
+        }
+    }
+    
+    /**
+     * Pauses execution until user presses Enter.
+     */
+    fun pause(message: String = "Drücke Enter um fortzufahren...") {
+        print(message)
+        readLine()
+    }
+    
+    /**
      * Prompts the user with a question and presents multiple choices.
      * Repeats the prompt until a valid choice number is entered.
      *
