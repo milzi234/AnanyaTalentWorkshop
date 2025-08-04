@@ -742,21 +742,21 @@ fun main() {
   console.pause()
   
   // Example interaction demonstrating different moods
-  console.clear()
-  console.print("Du begegnest Lilli zum ersten Mal...")
-  println()
-  CharacterArtManager.showCharacter("Lilli", "curious")
-  console.print("Die Katze schaut dich neugierig an.")
-  console.pause()
+  // console.clear()
+  // console.print("Du begegnest Lilli zum ersten Mal...")
+  // println()
+  // CharacterArtManager.showCharacter("Lilli", "curious")
+  // console.print("Die Katze schaut dich neugierig an.")
+  // console.pause()
   
-  console.clear()
-  console.print("Nachdem du dich vorgestellt hast...")
-  println()
-  CharacterArtManager.showCharacter("Lilli", "happy")
-  console.print("Lilli freut sich, dich kennenzulernen!")
-  console.pause()
+  // console.clear()
+  // console.print("Nachdem du dich vorgestellt hast...")
+  // println()
+  // CharacterArtManager.showCharacter("Lilli", "happy")
+  // console.print("Lilli freut sich, dich kennenzulernen!")
+  // console.pause()
   
   // Start the actual game
   console.clear()
-  BossFight.startBossFight()
+  Prison.wakeUp()
 }
