@@ -1,7 +1,6 @@
 import com.github.mm.coloredconsole.*
 import kotlin.random.Random
 import kotlin.system.exitProcess
-import BossFight
 
 var name = ""
 val progress = StoryProgress()
@@ -74,7 +73,8 @@ object Prison : ColoredConsole {
     wakeUp()
   }
 
-  var pieceOfPaperErrorCount: Int = 0 // Outside of the function, so that is doesn't reset when the function is called
+  var pieceOfPaperErrorCount: Int =
+          0 // Outside of the function, so that is doesn't reset when the function is called
   fun pieceOfPaper() {
     if (progress.didItHappen(StoryFlags.BECAME_FRIENDS_WITH_CAT)) {
       console.print(
@@ -84,11 +84,28 @@ object Prison : ColoredConsole {
       if (pieceOfPaperErrorCount >= 3 && pieceOfPaperErrorCount <= 4) { // 3 and 4 wrong guesses
         console.print("")
         console.print("")
-        console.print("Lili sagt: " + "Ich glaube die Zahlen verdoppeln sich immer. ".purple + "2".purple.bright + " ist das Doppelte von ".purple + "1".purple.bright + " und ".purple + "4".purple.bright + " dann das Doppelte von ".purple + "2".purple.bright + " und so weiter.".purple)
+        console.print(
+                "Lili sagt: " +
+                        "Ich glaube die Zahlen verdoppeln sich immer. ".purple +
+                        "2".purple.bright +
+                        " ist das Doppelte von ".purple +
+                        "1".purple.bright +
+                        " und ".purple +
+                        "4".purple.bright +
+                        " dann das Doppelte von ".purple +
+                        "2".purple.bright +
+                        " und so weiter.".purple
+        )
       } else if (pieceOfPaperErrorCount >= 5) { // all other wrong guesses
         console.print("")
         console.print("")
-        console.print("Lili sagt: " + "Probier' mal ".purple + "32".purple.bright + ", das ist das Doppelte von ".purple + "16".purple.bright)
+        console.print(
+                "Lili sagt: " +
+                        "Probier' mal ".purple +
+                        "32".purple.bright +
+                        ", das ist das Doppelte von ".purple +
+                        "16".purple.bright
+        )
       }
 
       val answer = console.ask("Was ist die nächste Zahl?")
@@ -292,8 +309,8 @@ fun door1() {
     console.print("Die Antwort ist falsch.Versuche es nochmal.")
     door1()
   }
-  Hallway.doorAndStairs()
   progress.remember(StoryFlags.DOOR_ONE_DONE)
+  Hallway.doorAndStairs()
 }
 
 fun door2() {
@@ -303,7 +320,17 @@ fun door2() {
   if (progress.didItHappen(StoryFlags.STAIRCASE_DONE) &&
                   progress.didItHappen(StoryFlags.DOOR_ONE_DONE)
   ) {
-    val choice =
+    dwarfChoice()
+  } else {
+    console.print(
+            "Du hast keine Ahnung was der Zwerg meint. Vielleicht gehst du irgendwo anders hin bevor der Zwerg komplett ausflippt."
+    )
+    Hallway.doorAndStairs()
+  }
+}
+
+fun dwarfChoice() {
+  val choice =
             console.multipleChoice(
                     "Was machst du?",
                     listOf(
@@ -316,19 +343,16 @@ fun door2() {
             .on("Du bietest dein Sandwich dem Zwerg an") { giveSandwich() }
             .on("Versuchen mit dem Zwerg zu sprechen") { talkToZwi() }
             .on("Die zwei Zettel anschauen die du gefunden hast") { readTwoPapers() }
-  } else {
-    console.print(
-            "Du hast keine Ahnung was der Zwerg meint. Vielleicht gehst du irgendwo anders hin bevor der Zwerg komplett ausflippt."
-    )
-  }
 }
 
 fun giveSandwich() {
   if (progress.didItHappen(StoryFlags.ANSWERED_THE_QUESTION)) {
     console.print("Der Zwerg nimmt dein Sandwich gerne an.Er isst es glücklich auf.")
     progress.remember(StoryFlags.FRIEND_WITH_ZWE)
+    dwarfChoice()
   } else {
     console.print("Er sagt nur:'Passwort!Passwort!Passwort!...'")
+    dwarfChoice()
   }
 }
 
@@ -344,8 +368,10 @@ fun talkToZwi() {
     hallWay2()
   } else if (progress.didItHappen(StoryFlags.ANSWERED_THE_QUESTION)) {
     console.print("Er guckt dich an.Er sagt nichts.Aber hat aufgehört 'Passwort' zu sagen")
+    dwarfChoice()
   } else {
     console.print("Er sagt nur:'Passwort!Passwort!Passwort!...'")
+    dwarfChoice()
   }
 }
 
@@ -362,6 +388,7 @@ fun readTwoPapers() {
     readTwoPapers()
   }
   progress.remember(StoryFlags.ANSWERED_THE_QUESTION)
+  dwarfChoice()
 }
 
 fun hallWay2() {
@@ -627,6 +654,13 @@ object RoomWithGiant : ColoredConsole {
               "Da kann ich helfen.Meine Magie kann zwar nicht vieles aber einen Schlüssel zusammen zaubern kann ich!".yellow +
                       "\".Und plötzlich wurde aus 4 Teilchen eins!Ihr habt es geschafft!"
       )
+      console.print(
+              "Mit dem Schlüssel öffnet ihr die Tür zum Thronsaal des bösen Zauberers."
+      )
+      console.print("")
+      console.print("Du gehst alleine hinein. Alle sagen: Viel Glück " + name.purple)
+      console.pause("Drücke Enter um dem Bösen Zauberer zu begegnen!")
+      BossFight.startBossFight()
     } else {
       console.print("Die Antwort ist leider nicht richtig.Versuche es noch einmal.")
       quan()
@@ -661,16 +695,18 @@ object BossFight : ColoredConsole {
           )
   val wizardMoods: List<String> = listOf("menacing", "angry", "laughing", "casting", "furious")
   val alreadyAnswered: MutableSet<Int> = HashSet<Int>()
-  
+
   fun startBossFight() {
     console.clear()
     console.print("Du betrittst den Thronsaal des bösen Zauberers...".red)
     CharacterArtManager.showCharacter("wizard", "menacing")
-    console.print("Der böse Zauberer: 'Endlich bist du hier, $name! Aber du wirst mich niemals besiegen!'".red)
+    console.print(
+            "Der böse Zauberer: 'Endlich bist du hier, $name! Aber du wirst mich niemals besiegen!'".red
+    )
     console.pause()
     challenge()
   }
-  
+
   fun pickRandomQuestion(): List<String> {
     var questionIndex = 0
     do {
@@ -689,21 +725,23 @@ object BossFight : ColoredConsole {
     if (areWeDone()) {
       console.clear()
       CharacterArtManager.showCharacter("wizard", "defeated")
-      console.print("Der Zauberer fällt zu Boden: 'Nein! Das ist unmöglich! Du hast mich besiegt!'".red)
+      console.print(
+              "Der Zauberer fällt zu Boden: 'Nein! Das ist unmöglich! Du hast mich besiegt!'".red
+      )
       console.pause()
       outro()
     }
-    
+
     // Show random wizard mood before each question
     console.clear()
     val randomMood = wizardMoods[Random.nextInt(wizardMoods.size)]
     CharacterArtManager.showCharacter("wizard", randomMood)
-    
+
     val pair = pickRandomQuestion()
     val question = pair.first()
     val answer = pair.last()
     console.print("Der Zauberer stellt dir eine Aufgabe: $question".red)
-    
+
     if (console.askRaw("Deine Antwort: ").matchesExactly(answer)) {
       console.print(reactions[challengesCompleted])
       challengesCompleted++
@@ -735,12 +773,10 @@ object BossFight : ColoredConsole {
   }
 }
 
-
 fun main() {
   // Example: Show title screen and demonstrate character art
   CharacterArtManager.showTitle()
   console.pause()
-  
   // Example interaction demonstrating different moods
   // console.clear()
   // console.print("Du begegnest Lilli zum ersten Mal...")
@@ -748,14 +784,12 @@ fun main() {
   // CharacterArtManager.showCharacter("Lilli", "curious")
   // console.print("Die Katze schaut dich neugierig an.")
   // console.pause()
-  
   // console.clear()
   // console.print("Nachdem du dich vorgestellt hast...")
   // println()
   // CharacterArtManager.showCharacter("Lilli", "happy")
   // console.print("Lilli freut sich, dich kennenzulernen!")
   // console.pause()
-  
   // Start the actual game
   console.clear()
   Prison.wakeUp()
