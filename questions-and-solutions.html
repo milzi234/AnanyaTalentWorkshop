@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ananya Talent Workshop - Fragen & Lösungen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .question-block {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .question-block:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .location {
+            display: inline-block;
+            background: #764ba2;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            margin-left: 10px;
+            font-size: 0.9em;
+        }
+
+        .question {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .solution {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            border: 2px dashed #667eea;
+            margin-top: 15px;
+        }
+
+        .solution-label {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .solution-answer {
+            font-size: 1.5em;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .explanation {
+            color: #666;
+            font-size: 0.95em;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .boss-fight {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+
+        .boss-questions {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .boss-question-item {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            border: 2px solid #ffc107;
+        }
+
+        .boss-question-item .q {
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .boss-question-item .a {
+            color: #28a745;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 Ananya Talent Workshop</h1>
+            <p>Alle Fragen & Lösungen</p>
+        </header>
+
+        <div class="content">
+            <!-- Question 1 -->
+            <div class="question-block">
+                <span class="question-number">Frage 1</span>
+                <span class="location">🔒 Käfig</span>
+                <div class="question">
+                    Auf dem Zettel steht: 1, 2, 4, 8, 16, ??
+                    <br>Was ist die nächste Zahl?
+                </div>
+                <div class="solution">
+                    <div class="solution-label">✅ Lösung:</div>
+                    <div class="solution-answer">32</div>
+                    <div class="explanation">Die Zahlen verdoppeln sich jedes Mal. 16 × 2 = 32</div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-block">
+                <span class="question-number">Frage 2</span>
+                <span class="location">👨‍🍳 Küche (Troll-Quest)</span>
+                <div class="question">
+                    An einem Hafen kommt ein Boot entweder nach 2, 4, 8, 12 oder 16 Wochen.
+                    Nach wie vielen Wochen treffen sich alle Schiffe wieder am Hafen?
+                </div>
+                <div class="solution">
+                    <div class="solution-label">✅ Lösung:</div>
+                    <div class="solution-answer">48</div>
+                    <div class="explanation">Das kleinste gemeinsame Vielfache (kgV) von 2, 4, 8, 12 und 16 ist 48</div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-block">
+                <span class="question-number">Frage 3</span>
+                <span class="location">🔽 Treppenhaus</span>
+                <div class="question">
+                    Eine kaputte Uhr läuft doppelt so schnell wie eine normale Uhr.
+                    Wenn die kaputte Uhr um 7:45 angeschaltet wird, welche Uhrzeit zeigt die kaputte Uhr wenn es 14:45 ist?
+                </div>
+                <div class="solution">
+                    <div class="solution-label">✅ Lösung:</div>
+                    <div class="solution-answer">21:45</div>
+                    <div class="explanation">
+                        Von 7:45 bis 14:45 sind 7 Stunden vergangen.
+                        Die kaputte Uhr läuft doppelt so schnell, also zeigt sie 7:45 + (7 × 2) = 7:45 + 14 Stunden = 21:45
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-block">
+                <span class="question-number">Frage 4</span>
+                <span class="location">🚪 Tür 1 (Schrank)</span>
+                <div class="question">
+                    In meiner Schublade sind 10 rote und 10 gelbe Socken.
+                    Wie viele muss ich mindestens mit geschlossenen Augen ziehen,
+                    damit ich immer von einer Farbe mindestens 2 habe?
+                </div>
+                <div class="solution">
+                    <div class="solution-label">✅ Lösung:</div>
+                    <div class="solution-answer">3</div>
+                    <div class="explanation">
+                        Im schlechtesten Fall zieht man erst eine rote und dann eine gelbe Socke.
+                        Die dritte Socke muss dann entweder rot oder gelb sein,
+                        sodass man garantiert ein Paar hat.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-block">
+                <span class="question-number">Frage 5</span>
+                <span class="location">🧙 Zwerg-Rätsel</span>
+                <div class="question">
+                    Ein Riesenrad hat 28 Gondeln. In einer Gondel können maximal 7 Leute mitfahren.
+                    Wie viele Leute können maximal mitfahren, wenn 4 Gondeln kaputt sind?
+                </div>
+                <div class="solution">
+                    <div class="solution-label">✅ Lösung:</div>
+                    <div class="solution-answer">168</div>
+                    <div class="explanation">
+                        28 Gondeln - 4 kaputte Gondeln = 24 funktionierende Gondeln<br>
+                        24 Gondeln × 7 Leute = 168 Leute
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-block">
+                <span class="question-number">Frage 6</span>
+                <span class="location">🧝 Riese/Elfe-Tresor</span>
+                <div class="question">
+                    Du kaufst ein sehr günstiges Buch und einen sehr günstigen Stift.
+                    Beides zusammen kostet 1 Euro und 10 Cents.
+                    Das Buch kostet 1 Euro mehr als der Stift.
+                    Wie viele Cents kostet der Stift?
+                </div>
+                <div class="solution">
+                    <div class="solution-label">✅ Lösung:</div>
+                    <div class="solution-answer">5 Cents</div>
+                    <div class="explanation">
+                        Stift = x, Buch = x + 100 Cents<br>
+                        x + (x + 100) = 110<br>
+                        2x = 10<br>
+                        x = 5 Cents (Stift kostet 5 Cents, Buch kostet 105 Cents)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-block">
+                <span class="question-number">Frage 7</span>
+                <span class="location">🦄 Einhorn befreien</span>
+                <div class="question">
+                    Der Vater ist 35 Jahre alt und sein Sohn ist 5.
+                    In wie vielen Jahren wird der Vater genau dreimal so alt sein wie der Sohn?
+                </div>
+                <div class="solution">
+                    <div class="solution-label">✅ Lösung:</div>
+                    <div class="solution-answer">10 Jahre</div>
+                    <div class="explanation">
+                        In 10 Jahren: Vater = 45, Sohn = 15<br>
+                        45 = 3 × 15 ✓
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-block">
+                <span class="question-number">Frage 8</span>
+                <span class="location">🔑 Dachboden (Schlüssel-Quest)</span>
+                <div class="question">
+                    Zwei Freunde kriegen 1 mal pro Woche Taschengeld.
+                    Die ältere von ihnen kriegt zwei Euro mehr als die andere.
+                    Zusammen kriegen sie 12 Euro.
+                    Wie viel kriegt die jüngere von ihnen?
+                </div>
+                <div class="solution">
+                    <div class="solution-label">✅ Lösung:</div>
+                    <div class="solution-answer">5 Euro</div>
+                    <div class="explanation">
+                        Jüngere = x, Ältere = x + 2<br>
+                        x + (x + 2) = 12<br>
+                        2x = 10<br>
+                        x = 5 Euro
+                    </div>
+                </div>
+            </div>
+
+            <!-- Boss Fight Questions -->
+            <div class="question-block boss-fight">
+                <span class="question-number">Boss-Kampf</span>
+                <span class="location">⚔️ Thronsaal</span>
+                <div class="question">
+                    Der böse Zauberer stellt dir 12 zufällige Rechenaufgaben.
+                    Du musst 5 richtig beantworten, um ihn zu besiegen!
+                </div>
+                <div class="boss-questions">
+                    <div class="boss-question-item">
+                        <div class="q">23 + 12</div>
+                        <div class="a">35</div>
+                    </div>
+                    <div class="boss-question-item">
+                        <div class="q">100 - 43</div>
+                        <div class="a">57</div>
+                    </div>
+                    <div class="boss-question-item">
+                        <div class="q">7 × 12</div>
+                        <div class="a">84</div>
+                    </div>
+                    <div class="boss-question-item">
+                        <div class="q">90 ÷ 6</div>
+                        <div class="a">15</div>
+                    </div>
+                    <div class="boss-question-item">
+                        <div class="q">75 + 13</div>
+                        <div class="a">88</div>
+                    </div>
+                    <div class="boss-question-item">
+                        <div class="q">29 - 13</div>
+                        <div class="a">16</div>
+                    </div>
+                    <div class="boss-question-item">
+                        <div class="q">5 × 17</div>
+                        <div class="a">85</div>
+                    </div>
+                    <div class="boss-question-item">
+                        <div class="q">12 ÷ 4</div>
+                        <div class="a">3</div>
+                    </div>
+                    <div class="boss-question-item">
+                        <div class="q">45 + 38</div>
+                        <div class="a">83</div>
+                    </div>
+                    <div class="boss-question-item">
+                        <div class="q">99 - 53</div>
+                        <div class="a">46</div>
+                    </div>
+                    <div class="boss-question-item">
+                        <div class="q">3 × 15</div>
+                        <div class="a">45</div>
+                    </div>
+                    <div class="boss-question-item">
+                        <div class="q">88 ÷ 8</div>
+                        <div class="a">11</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            🎮 Ananya Talent Workshop - Mathe-Abenteuer<br>
+            Alle Fragen und Lösungen auf einen Blick
+        </footer>
+    </div>
+</body>
+</html>

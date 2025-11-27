@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ananya Talent Workshop - Bedienungsanleitung</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .intro {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .intro h2 {
+            color: #2196f3;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .intro p {
+            color: #333;
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+
+        .instruction-block {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .instruction-block:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .instruction-title {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .instruction-text {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+
+        .example-box {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            border: 2px solid #667eea;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .example-label {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .terminal-text {
+            color: #2e7d32;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        .user-input {
+            color: #1565c0;
+            font-weight: bold;
+        }
+
+        .tip-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .tip-label {
+            font-weight: bold;
+            color: #f57c00;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .tip-text {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .shortcut {
+            background: #e8eaf6;
+            border: 2px solid #5c6bc0;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #283593;
+            display: inline-block;
+            margin: 5px 2px;
+        }
+
+        .important-note {
+            background: #ffebee;
+            border-left: 5px solid #f44336;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .important-label {
+            font-weight: bold;
+            color: #c62828;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .gesture {
+            font-size: 2em;
+            margin: 0 10px;
+        }
+
+        /* Print-spezifische Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+            }
+
+            header {
+                background: white !important;
+                color: black !important;
+                border-bottom: 3px solid black;
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+
+            header h1, header p {
+                color: black;
+            }
+
+            .intro {
+                background: white;
+                border-left: 4px solid black;
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            .intro h2 {
+                color: black;
+            }
+
+            .intro p {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            .instruction-block {
+                background: white;
+                border-left: 4px solid black;
+                box-shadow: none;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                margin-bottom: 20px;
+                padding: 20px;
+            }
+
+            .instruction-block:hover {
+                transform: none;
+                box-shadow: none;
+            }
+
+            .step-number {
+                background: black !important;
+                color: white;
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+
+            .instruction-title {
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+
+            .instruction-text {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            .instruction-text ol,
+            .instruction-text ul {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            .example-box {
+                background: #f5f5f5;
+                border: 2px solid black;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                margin-top: 10px;
+            }
+
+            .example-label {
+                color: black;
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+
+            .terminal-text {
+                color: black;
+            }
+
+            .user-input {
+                color: black;
+                text-decoration: underline;
+            }
+
+            .tip-box {
+                background: white;
+                border-left: 4px solid black;
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            .tip-label {
+                color: black;
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+
+            .tip-text {
+                color: black;
+            }
+
+            .shortcut {
+                background: white;
+                border: 2px solid black;
+                color: black;
+            }
+
+            .important-note {
+                background: white;
+                border-left: 4px solid black;
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            .important-label {
+                color: black;
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+
+            footer {
+                background: white;
+                color: black;
+                border-top: 2px solid black;
+                page-break-before: avoid;
+                break-before: avoid;
+            }
+
+            table {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            table tr {
+                background: white !important;
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            table td {
+                border: 1px solid black !important;
+            }
+
+            /* Verhindere Seitenumbrüche bei zusammengehörigen Elementen */
+            p, ol, ul {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Bedienungsanleitung</h1>
+            <p>So spielst du das Textadventure</p>
+        </header>
+
+        <div class="content">
+            <!-- Introduction -->
+            <div class="intro">
+                <h2>🎮 Was ist ein Textadventure?</h2>
+                <p>
+                    Ein Textadventure ist ein Spiel, das komplett im Terminal (schwarzer Bildschirm mit Text) läuft.
+                    Das Spiel erzählt dir eine Geschichte und stellt dir Aufgaben.
+                    Du antwortest, indem du Text eingibst und die Enter-Taste drückst.
+                    Es ist wie ein interaktives Buch, bei dem du die Entscheidungen triffst!
+                </p>
+            </div>
+
+            <!-- Instruction 1 -->
+            <div class="instruction-block">
+                <span class="step-number">Schritt 1</span>
+                <div class="instruction-title">⌨️ Eine Eingabe machen</div>
+                <div class="instruction-text">
+                    Das Spiel stellt dir Fragen oder gibt dir Anweisungen. Wenn du eine Eingabe machen sollst,
+                    siehst du oft einen Cursor (blinkender Strich) oder eine Eingabeaufforderung.
+                    <br><br>
+                    <strong>So machst du eine Eingabe:</strong>
+                    <ol style="margin-left: 20px; margin-top: 10px; line-height: 2;">
+                        <li>Lies die Frage oder Aufgabe aufmerksam durch</li>
+                        <li>Tippe deine Antwort mit der Tastatur ein</li>
+                        <li>Drücke die <span class="shortcut">Enter ↵</span> Taste, um deine Antwort abzuschicken</li>
+                    </ol>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-label">💡 Beispiel:</div>
+                    <div class="terminal-text">
+                        Was ist 2 + 2?<br>
+                        Deine Antwort: <span class="user-input">4</span> ← Du tippst "4" und drückst Enter
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-label">💡 Tipp:</div>
+                    <div class="tip-text">
+                        Achte auf die richtige Schreibweise! Bei Zahlen musst du genau die richtige Zahl eingeben.
+                        Bei Wörtern (z.B. Befehle wie "nord", "süd", "öffnen") musst du das Wort genau so schreiben,
+                        wie es im Spiel verlangt wird.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instruction 2 -->
+            <div class="instruction-block">
+                <span class="step-number">Schritt 2</span>
+                <div class="instruction-title">👆 Lösungen ansehen (Touchpad-Geste)</div>
+                <div class="instruction-text">
+                    Wenn du bei einer Aufgabe nicht weiterkommst, kannst du die Lösungen ansehen!
+                    <br><br>
+                    <strong>So kommst du zu den Lösungen:</strong>
+                    <br>
+                    Wische mit <strong>drei Fingern nach links</strong> <span class="gesture">👉</span> auf deinem Touchpad
+                </div>
+
+                <div class="example-box">
+                    <div class="example-label">🖐️ Geste:</div>
+                    <div class="terminal-text" style="text-align: center; padding: 20px; font-size: 1.2em;">
+                        <span class="gesture">👆👆👆</span>
+                        <span style="font-size: 2em;">←</span>
+                        <br><br>
+                        Drei Finger nach links wischen
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-label">💡 Tipp:</div>
+                    <div class="tip-text">
+                        Die Lösungsdatei heißt "questions-and-solutions.html" und öffnet sich in deinem Browser.
+                        Dort findest du alle Fragen mit den richtigen Antworten und Erklärungen!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instruction 3 -->
+            <div class="instruction-block">
+                <span class="step-number">Schritt 3</span>
+                <div class="instruction-title">🔙 Zurück zum Spiel</div>
+                <div class="instruction-text">
+                    Nachdem du die Lösung gesehen hast, möchtest du zurück zum Spiel.
+                    <br><br>
+                    <strong>So kommst du zurück:</strong>
+                    <br>
+                    Wische mit <strong>drei Fingern nach rechts</strong> <span class="gesture">👈</span> auf deinem Touchpad
+                </div>
+
+                <div class="example-box">
+                    <div class="example-label">🖐️ Geste:</div>
+                    <div class="terminal-text" style="text-align: center; padding: 20px; font-size: 1.2em;">
+                        <span class="gesture">👆👆👆</span>
+                        <span style="font-size: 2em;">→</span>
+                        <br><br>
+                        Drei Finger nach rechts wischen
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-label">💡 Tipp:</div>
+                    <div class="tip-text">
+                        Du kannst zwischen dem Terminal (Spiel) und dem Browser (Lösungen) hin- und herwechseln,
+                        so oft du möchtest. Einfach mit drei Fingern nach links oder rechts wischen!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instruction 4 -->
+            <div class="instruction-block">
+                <span class="step-number">Schritt 4</span>
+                <div class="instruction-title">🔄 Das Spiel neu starten</div>
+                <div class="instruction-text">
+                    Manchmal möchtest du vielleicht das Spiel von vorne beginnen oder ein eingefrorenes Programm beenden.
+                    <br><br>
+                    <strong>So startest du neu:</strong>
+                    <br>
+                    Drücke gleichzeitig <span class="shortcut">CTRL</span> + <span class="shortcut">C</span> auf deiner Tastatur
+                </div>
+
+                <div class="example-box">
+                    <div class="example-label">⌨️ Tastenkombination:</div>
+                    <div class="terminal-text" style="text-align: center; padding: 20px; font-size: 1.2em;">
+                        <span class="shortcut">CTRL</span> + <span class="shortcut">C</span>
+                        <br><br>
+                        (Beide Tasten gleichzeitig drücken)
+                    </div>
+                </div>
+
+                <div class="important-note">
+                    <div class="important-label">⚠️ Wichtig:</div>
+                    <div class="tip-text">
+                        CTRL+C beendet das aktuelle Programm sofort! Dein Spielfortschritt geht verloren.
+                        Um das Spiel danach wieder zu starten, musst du das Start-Script erneut ausführen.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Reference -->
+            <div class="instruction-block" style="background: #e8f5e9; border-left-color: #4caf50;">
+                <span class="step-number" style="background: #4caf50;">Schnellübersicht</span>
+                <div class="instruction-title">🚀 Alle Befehle auf einen Blick</div>
+                <div class="instruction-text">
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                        <tr style="background: white;">
+                            <td style="padding: 15px; border: 2px solid #4caf50; font-weight: bold;">Aktion</td>
+                            <td style="padding: 15px; border: 2px solid #4caf50; font-weight: bold;">Wie?</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 2px solid #4caf50;">Antwort eingeben</td>
+                            <td style="padding: 15px; border: 2px solid #4caf50;">Text tippen + <span class="shortcut">Enter ↵</span></td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 15px; border: 2px solid #4caf50;">Lösungen ansehen</td>
+                            <td style="padding: 15px; border: 2px solid #4caf50;"><span class="gesture">👆👆👆</span> Drei Finger nach <strong>links</strong> wischen</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 2px solid #4caf50;">Zurück zum Spiel</td>
+                            <td style="padding: 15px; border: 2px solid #4caf50;"><span class="gesture">👆👆👆</span> Drei Finger nach <strong>rechts</strong> wischen</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 15px; border: 2px solid #4caf50;">Spiel beenden/neustarten</td>
+                            <td style="padding: 15px; border: 2px solid #4caf50;"><span class="shortcut">CTRL</span> + <span class="shortcut">C</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            🎮 Ananya Talent Workshop - Viel Spaß beim Spielen!<br>
+            Bei Fragen oder Problemen, frag einfach nach Hilfe 😊
+        </footer>
+    </div>
+</body>
+</html>

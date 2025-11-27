@@ -38,8 +38,17 @@ if [ $? -eq 0 ]; then
     echo "=================================================="
     echo ""
 
-    # Run the JAR file
-    java -jar out/production/AnanyaTalentWorkshop.jar
+    # Run the JAR file in a restart loop
+    echo "💡 Press Ctrl+C to restart the game, Ctrl+\\ to exit completely"
+    echo ""
+
+    while true; do
+        java -jar out/production/AnanyaTalentWorkshop.jar
+        echo ""
+        echo "🔄 Game ended. Restarting in 2 seconds..."
+        echo "   Press Ctrl+\\ to exit, or Ctrl+C to restart immediately"
+        sleep 2 || break
+    done
 else
     echo "❌ Compilation failed!"
     echo "Please check the error messages above and fix any issues."
